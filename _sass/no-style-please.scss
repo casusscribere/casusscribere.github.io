@@ -37,7 +37,10 @@ body {
 
 h2, h3, h4, h5, h6 { margin-top: 3rem; }
 
-h5 {margin-top: 0rem !important;}
+h4 {
+  margin-top: 0rem !important;
+  margin-bottom: 0rem !important;
+}
 
 hr { margin: 2rem 0; }
 
