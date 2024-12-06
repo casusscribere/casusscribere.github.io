@@ -11,18 +11,18 @@ category: professional
 ---
 
 ## Scolarly Publications
-###### Journal Articles
+##### Journal Articles
 - Lundblade, Kirk. 2021. “Watch Me Make History: Reenacting and Remaking the Past in Historical Game Live Streams.” Popular Culture Studies Journal 9: 69–87.
 - ———. 2019. “How the West (Was) Won: Unit Operations and Emergent Procedural Rhetorics of Colonialism in Europa Universalis IV.” Journal of Gaming & Virtual Worlds 11 (3): 251–70. https://doi.org/10.1386/jgvw.11.3.251_1.
 
-###### Conference Proceedings
+##### Conference Proceedings
 - Lundblade, Kirk. 2024. “Gods, Kings, and Historians: History and the Dual Diegesis of Crusader Kings in the Assemblage of Play.” In Proceedings of DiGRA 2024 Conference. Guadalajara, MX.
 - ———. 2023. “Sorting Things Out: Critically Assessing the Impact of Reddit’s Post Sorting Algorithms on Qualitative Analysis Methods.” In The 41st ACM International Conference on Design of Communication, 7. Orlando, FL: ACM. https://doi.org/10.1145/3615335.3623021.
 - ———. 2023. “If Your Empire Last More Than Two Centuries, You May Need to Speak to Your Doctor: The Effects of Historicizing Discourse in the Crusader Kings 3 Community.” In Foundations of Digital Games 2023, 7. Lisbon, Portugal: ACM. https://doi.org/10.1145/3582437.3582471.
 - ———. 2021. “Crowning Achievements: A Historioludic Analysis of the Achievement Metagame in Historical Simulation Games.” In Proceedings of the 16th International Conference on the Foundations of Digital Games, 11. Montreal, QC, Canada: ACM. https://doi.org/10.1145/3472538.3472563.
 - ———. 2020. “Civilizing Civilization (and beyond): A History of Historical Game Studies.” In Proceedings of the 16th International Conference on the Foundations of Digital Games, 11. Bugibba, Malta: ACM. https://doi.org/10.1145/3402942.3402977.
 
-###### Book Chapters
+##### Book Chapters
 - Lundblade, Kirk. In Press. “What Video Games Have Taught Us: Two Decades of Gaming and Learning.” In Historiographies of Game Studies: What It Has Been, What It Could Be, edited by Alisha Karabinus, Carly A Kocurek, Cody Mejur, and Emma Vossen.
 
 ---
@@ -35,17 +35,17 @@ category: professional
 ---
 
 ## Courses Taught
-###### Instructor of Record
+##### Instructor of Record
 - Server-Side Scripting
 - Writing for the Technical Professional
 
-###### Teaching Assistant
+##### Teaching Assistant
 - Web Development (graduate-level; in-person)
 
 ---
 
 ## Additional Teaching
-###### Guest Lectures
+##### Guest Lectures
 - Lundblade, Kirk. 2023. “Playing [Preposition] the Past: A Research Trajectory.” DIG6436: Playable Texts.
 - ———. 2023. “Gaming Natures: Philosophies and Affordances of Virtual Worlds.” PHI3640: Environmental Ethics.
 - ———. 2022. “Gaming History: A Ridiculously Brief Introduction to the Study of Historical Games.” AMH4644: Viewing American history in the twentieth century.
@@ -62,42 +62,42 @@ category: professional
 ---
 
 ## Service
-###### Paper Reviews
+##### Paper Reviews
 - International Conference on Interactive Digital Storytelling (2024)
-###### Organizational
+##### Organizational
 - Texts & Technology Student Association (2019–2021)
 
 ---
 
 ## Technical Skills
-###### Programming Languages
+##### Programming Languages
 - <i>Scripting:</i> JavaScript (jQuery, NodeJS, Vue.js), PHP(Laravel, WordPress), Python
 - <i>Compiled:</i> C# (ASP.NET MVC), C++
 - <i>Embedded/Hardware:</i> C, VHDL, Assembly(MIPS), LabVIEW, TestStand
 - <i>Selected tools, packages, and frameworks:</i> Vuex, Eloquent, Webpack, npm, composer, git, gulp, grunt
 
-###### Markup Languages
+##### Markup Languages
 - HTML, XML, CSS(LESS, SASS)
 
-###### Database Environments and ORMs
+##### Database Environments and ORMs
 - MongoDB, MySQL, MariaDB, Eloquent
 
-###### DevOps
+##### DevOps
 - Docker, Git, Github
 
-###### IT Infrastructure 
+##### IT Infrastructure 
 - Ubuntu, CentOS, Apache
 
-###### Hardware
+##### Hardware
 - <i>Communications:</i> GPIB, Serial, CAN, I2C, SPI
 - <i>Platforms(NI):</i> cRIO, cDAQ, DAQ, PXI
 - <i>Other:</i> Xilinx FPGA, raspberry pi
 
-###### Electromechanical
+##### Electromechanical
 - <i>Equipment:</i> MM, Oscilloscope, FGen, power, precision mechanical
 - <i>Practices:</i> soldering, assembly, wiring, basic repair
 
-###### Software Suites
+##### Software Suites
 - <i>Development:</i> Visual Studio(NI Measurement Studio), Visual Studio Code, LabWindows/CVI, NP++
 - <i>Data Visualization:</i> DIAdem, ArcGIS, D3, Leaflet.js
 - <i>Engineering:</i> MATLAB, SPICE, LabVIEW, TestStand
@@ -114,10 +114,10 @@ category: professional
 ---
 
 ## Conference Presentations
-###### International
+##### International
 - Lundblade, Kirk. 2020. “Oops We Did It Again: Problematizing Climate Change Representations in Games with Sid Meier’s Civilization VI.” Conference Presentation presented at ELO 2020, July 2. https://stars.library.ucf.edu/elo2020/asynchronous/talks/29/.
 
-###### Regional
+##### Regional
 - Lundblade, Kirk. 2023. “Technical Debt? Not Today!: Understanding the Hidden Long-Term Costs of Technical Design Constraints on Digital Humanities Projects.” Conference presentation presented at the Florida Historical Society 2023 Annual Meeting & Symposium, Orlando, FL, October.
 - ———. 2022. “Bending Toward Justice: Designing a Digital History Exhibit.” Conference presentation presented at the Florida Historical Society 2022 Annual Meeting & Symposium, Orlando, FL, October.
 
@@ -128,7 +128,7 @@ category: professional
 ---
 
 ## Courses Available to Teach
-###### Graduate
+##### Graduate
 - DIG5487: Programming for Digital Media
 - DIG5831: Computational Media
 - DIG6436: Playable Texts and Technology
@@ -146,7 +146,7 @@ category: professional
 
 ---
 
-###### Undergraduate
+##### Undergraduate
 - DIG2000: Introduction to Digital Media
 - DIG3003: Adventures in Emerging Media
 - DIG3024: Digital Cultures & Narrative
