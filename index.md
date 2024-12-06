@@ -17,4 +17,11 @@ Kirk Lundblade is a scholar of historical game studies and digital cultures; he 
 
 ---
 
-### Latest Work
+### Contacts and Socials
+email: kirk[dot]lundblade[at]ucf.edu
+github: casusscribere
+bluesky: @casusscribere.bsky.social
+
+---
+
+### CV and Latest Work
