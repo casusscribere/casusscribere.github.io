@@ -6,3 +6,5 @@ _site
 vendor
 Gemfile.lock
 sourcedocs/*
+archived-test-variants
+archived-test-variants/*

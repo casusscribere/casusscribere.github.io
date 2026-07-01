@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kirk M. Lundblade — Civilopedia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ====================================================
+       RESET & TOKENS
+    ==================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --parchment:      #F3E3BE;
+      --parchment-mid:  #E6D099;
+      --parchment-deep: #C9B06A;
+      --dark:           #120C02;
+      --gold:           #C8962B;
+      --gold-lt:        #E8B84B;
+      --gold-dk:        #7A5A18;
+      --crimson:        #8B2635;
+      --teal:           #1A6464;
+      --forest:         #2D5016;
+      --sci:            #3A7FAF;
+      --cul:            #7B3FA0;
+      --pro:            #A84415;
+      --fai:            #1E8C5A;
+      --text:           #1A0E05;
+      --text-body:      #2C1810;
+      --text-muted:     #7A5C3A;
+      --text-lt:        #F5EDD5;
+      --text-dim:       rgba(245,237,213,0.7);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text-body);
+      font-family: 'Lora', Georgia, serif;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--gold-dk); text-decoration: none; }
+    a:hover { color: var(--gold); text-decoration: underline; }
+
+    section[id] { scroll-margin-top: 52px; }
+
+
+    /* ====================================================
+       HERO
+    ==================================================== */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #hex-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 3rem 2rem;
+      max-width: 760px;
+    }
+
+    .era-chip {
+      display: inline-block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-dk);
+      padding: 0.35em 1.2em;
+      margin-bottom: 2.25rem;
+    }
+
+    .hero-name {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2.2rem, 6.5vw, 4.75rem);
+      font-weight: 700;
+      color: var(--text-lt);
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 60px rgba(200,150,43,0.25);
+    }
+
+    .ornament {
+      display: block;
+      color: var(--gold);
+      letter-spacing: 0.6em;
+      font-size: 0.75rem;
+      margin-bottom: 1.5rem;
+      user-select: none;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.72rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--parchment-mid);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-affil {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+    }
+
+    .hero-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero-nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--parchment-mid);
+      padding: 0.55em 1.15em;
+      border: 1px solid var(--gold-dk);
+      margin: 0 -1px -1px 0;
+      transition: background 0.18s, color 0.18s;
+      text-decoration: none;
+    }
+
+    .hero-nav a:hover {
+      background: rgba(200,150,43,0.14);
+      color: var(--gold-lt);
+      text-decoration: none;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--gold-dk);
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      animation: bob 2.2s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+
+    /* ====================================================
+       STICKY NAV
+    ==================================================== */
+    #topnav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--dark);
+      border-bottom: 1px solid var(--gold-dk);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.75rem;
+      height: 52px;
+    }
+
+    .nav-mark {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 0 1rem;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--gold-lt);
+      border-bottom-color: var(--gold);
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .nav-mark { display: none; }
+      .nav-links a { padding: 0 0.6rem; font-size: 0.6rem; }
+    }
+
+
+    /* ====================================================
+       SECTION SHELL
+    ==================================================== */
+    .section-wrap {
+      padding: 5.5rem 2rem;
+    }
+
+    .section-wrap.full-bleed {
+      max-width: none;
+    }
+
+    .inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.35rem, 3vw, 1.9rem);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .rule {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      color: var(--gold);
+      font-size: 0.55rem;
+    }
+
+    .rule::before,
+    .rule::after {
+      content: '';
+      height: 1px;
+      width: 56px;
+      background: var(--parchment-deep);
+    }
+
+    /* panel border */
+    .panel {
+      border: 1px solid var(--parchment-deep);
+      background: rgba(255,252,240,0.55);
+      padding: 2rem 2.25rem;
+      position: relative;
+    }
+
+    .panel::after {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border: 1px solid rgba(200,150,43,0.18);
+      pointer-events: none;
+    }
+
+
+    /* ====================================================
+       ABOUT — CIVILOPEDIA LAYOUT
+    ==================================================== */
+    .civ-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 640px) {
+      .civ-layout { grid-template-columns: 1fr; }
+    }
+
+    .hex-portrait {
+      width: 110px;
+      height: 110px;
+      clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+      background: linear-gradient(140deg, var(--gold-dk), var(--gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.75rem;
+    }
+
+    .hex-initials {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .stat-block {
+      margin-bottom: 1.25rem;
+    }
+
+    .stat-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--parchment-deep);
+      padding-bottom: 0.2em;
+      margin-bottom: 0.4em;
+    }
+
+    .stat-val {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .stat-sub {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .civ-body p {
+      margin-bottom: 1.2rem;
+      font-size: 0.97rem;
+    }
+
+    .civ-body p:last-child { margin-bottom: 0; }
+
+
+    /* ====================================================
+       PUBLICATIONS — GREAT WORKS
+    ==================================================== */
+    #research { background: var(--parchment-mid); }
+    #research .eyebrow  { color: var(--gold-dk); }
+    #research .rule::before,
+    #research .rule::after { background: var(--gold-dk); }
+
+    .pub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .pub-card {
+      background: var(--parchment);
+      border: 1px solid var(--parchment-deep);
+      border-top: 3px solid var(--gold);
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+
+    .pub-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(18,12,2,0.14);
+    }
+
+    .pub-card.journal   { border-top-color: var(--teal); }
+    .pub-card.book      { border-top-color: var(--crimson); }
+
+    .pub-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.65rem;
+    }
+
+    .pub-year {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--gold-dk);
+      letter-spacing: 0.06em;
+    }
+
+    .pub-badge {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-lt);
+      background: var(--gold-dk);
+      padding: 0.2em 0.6em;
+    }
+
+    .pub-badge.journal { background: var(--teal); }
+    .pub-badge.book    { background: var(--crimson); }
+
+    .pub-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.84rem;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .pub-venue {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .pub-abstract {
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: var(--text-body);
+      border-top: 1px solid var(--parchment-deep);
+      padding-top: 0.75rem;
+      margin-top: auto;
+    }
+
+
+    /* ====================================================
+       ERA LOG — CAREER TIMELINE
+    ==================================================== */
+    .era-timeline {
+      position: relative;
+    }
+
+    .era-timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--gold-dk) 8%, var(--gold-dk) 92%, transparent);
+      transform: translateX(-50%);
+    }
+
+    @media (max-width: 640px) {
+      .era-timeline::before { left: 16px; }
+    }
+
+    .era-block {
+      margin-bottom: 3.5rem;
+    }
+
+    .era-flag {
+      text-align: center;
+      margin-bottom: 1.75rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .era-flag span {
+      display: inline-block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--text-lt);
+      background: var(--gold-dk);
+      padding: 0.38em 1.6em;
+    }
+
+    .era-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem 3.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .era-items {
+        grid-template-columns: 1fr;
+        padding-left: 2.25rem;
+      }
+    }
+
+    .era-item {
+      background: rgba(255,252,240,0.55);
+      border: 1px solid var(--parchment-deep);
+      border-left: 3px solid var(--gold-dk);
+      padding: 0.9rem 1.1rem;
+    }
+
+    .era-item.alt { border-left-color: var(--teal); }
+    .era-item.award { border-left-color: var(--crimson); }
+
+    .era-year {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      color: var(--gold-dk);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.15rem;
+    }
+
+    .era-role {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    .era-org {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+
+    /* ====================================================
+       YIELDS — SKILLS
+    ==================================================== */
+    #skills { background: var(--dark); }
+
+    #skills .section-title { color: var(--text-lt); }
+    #skills .eyebrow { color: var(--gold-lt); }
+    #skills .rule { color: var(--gold); }
+    #skills .rule::before,
+    #skills .rule::after { background: var(--gold-dk); }
+
+    .yields-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .yield-card {
+      background: rgba(255,252,240,0.05);
+      border: 1px solid rgba(200,150,43,0.25);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .yield-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .yield-card.sci::before  { background: var(--sci); }
+    .yield-card.cul::before  { background: var(--cul); }
+    .yield-card.pro::before  { background: var(--pro); }
+    .yield-card.gld::before  { background: var(--gold); }
+    .yield-card.fai::before  { background: var(--fai); }
+    .yield-card.svc::before  { background: var(--teal); }
+
+    .yield-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .yield-icon {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+    }
+
+    .yield-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+    }
+
+    .yield-list {
+      list-style: none;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      line-height: 1.85;
+    }
+
+    .yield-list li::before {
+      content: '◆ ';
+      color: var(--gold-dk);
+      font-size: 0.45rem;
+      vertical-align: middle;
+      margin-right: 0.15em;
+    }
+
+
+    /* ====================================================
+       AWARDS
+    ==================================================== */
+    .awards-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .award-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(200,150,43,0.07);
+      border-left: 3px solid var(--gold);
+      padding: 0.9rem 1.1rem;
+    }
+
+    .award-glyph {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      line-height: 1.5;
+    }
+
+    .award-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .award-detail {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+
+    /* ====================================================
+       DIPLOMACY — CONTACT
+    ==================================================== */
+    #contact {
+      background: var(--dark);
+      border-top: 1px solid var(--gold-dk);
+    }
+
+    #contact .section-title { color: var(--text-lt); }
+    #contact .eyebrow { color: var(--gold-lt); }
+
+    .diplo-panel {
+      max-width: 480px;
+      margin: 0 auto 3rem;
+      border: 1px solid var(--gold-dk);
+      padding: 2.25rem 2.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .diplo-panel::after {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border: 1px solid rgba(200,150,43,0.18);
+      pointer-events: none;
+    }
+
+    .diplo-panel p {
+      font-size: 0.88rem;
+      font-style: italic;
+      color: var(--text-dim);
+      margin-bottom: 1.25rem;
+      line-height: 1.7;
+    }
+
+    .diplo-email {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--gold-lt);
+      margin-bottom: 0.3rem;
+    }
+
+    .diplo-email:hover { color: var(--gold); text-decoration: underline; }
+
+    .diplo-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .diplo-links a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--parchment-mid);
+      border: 1px solid var(--gold-dk);
+      padding: 0.4em 0.9em;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .diplo-links a:hover {
+      background: rgba(200,150,43,0.14);
+      color: var(--gold-lt);
+      text-decoration: none;
+    }
+
+    .turn-stamp {
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-dk);
+    }
+
+
+    /* ====================================================
+       RESPONSIVE OVERRIDES
+    ==================================================== */
+    @media (max-width: 640px) {
+      .section-wrap { padding: 3.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ======================================================
+     HERO
+====================================================== -->
+<header id="hero">
+  <canvas id="hex-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="era-chip">Civilopedia · Modern Era</div>
+    <h1 class="hero-name">Kirk M.<br>Lundblade</h1>
+    <span class="ornament">◆ — ◆ — ◆</span>
+    <p class="hero-title">Scholar of Historical Games &amp; Digital Humanities</p>
+    <p class="hero-affil">University of Central Florida · Ph.D. 2024</p>
+    <nav class="hero-nav">
+      <a href="#about">Civilopedia</a>
+      <a href="#research">Great Works</a>
+      <a href="#career">Era Log</a>
+      <a href="#skills">Yields</a>
+      <a href="#contact">Diplomacy</a>
+    </nav>
+  </div>
+  <div class="scroll-hint">▼ scroll ▼</div>
+</header>
+
+<!-- ======================================================
+     STICKY NAV
+====================================================== -->
+<nav id="topnav">
+  <span class="nav-mark">◆ &nbsp;K. M. Lundblade</span>
+  <ul class="nav-links">
+    <li><a href="#about">Civilopedia</a></li>
+    <li><a href="#research">Great Works</a></li>
+    <li><a href="#career">Era Log</a></li>
+    <li><a href="#skills">Yields</a></li>
+    <li><a href="#contact">Diplomacy</a></li>
+  </ul>
+</nav>
+
+
+<!-- ======================================================
+     ABOUT — CIVILOPEDIA ENTRY
+====================================================== -->
+<section id="about" class="section-wrap">
+  <div class="inner">
+    <div class="section-head">
+      <div class="eyebrow">Civilopedia Entry</div>
+      <h2 class="section-title">Kirk Matthew Lundblade</h2>
+      <div class="rule">◆</div>
+    </div>
+
+    <div class="panel">
+      <div class="civ-layout">
+
+        <aside>
+          <div class="hex-portrait">
+            <span class="hex-initials">KL</span>
+          </div>
+
+          <div class="stat-block">
+            <div class="stat-label">Degree</div>
+            <div class="stat-val">Ph.D. Texts &amp; Technology</div>
+            <div class="stat-sub">University of Central Florida, 2024</div>
+          </div>
+
+          <div class="stat-block">
+            <div class="stat-label">Prior Degrees</div>
+            <div class="stat-val">M.T.P.C.</div>
+            <div class="stat-sub">Auburn University, 2014</div>
+            <div class="stat-val" style="margin-top:0.3rem">B.S.E.C.E.</div>
+            <div class="stat-sub">Baylor University, 2011</div>
+          </div>
+
+          <div class="stat-block">
+            <div class="stat-label">Current Position</div>
+            <div class="stat-val">Applications Programmer I</div>
+            <div class="stat-sub">University of Central Florida, 2019–Present</div>
+          </div>
+
+          <div class="stat-block">
+            <div class="stat-label">Research Focus</div>
+            <div class="stat-val">Historical Game Studies<br>Digital Humanities<br>Discourse Analysis</div>
+          </div>
+
+          <div class="stat-block">
+            <div class="stat-label">Contact</div>
+            <div class="stat-sub"><a href="mailto:casus_scribere@gmail.com">casus_scribere@gmail.com</a></div>
+          </div>
+        </aside>
+
+        <div class="civ-body">
+          <p>Kirk M. Lundblade is a scholar operating at the intersection of game studies, digital humanities, and public history. His research examines how digital historical games — particularly the <em>Crusader Kings</em> series — construct and contest histories through their mechanics, community discourse, and surrounding paratexts.</p>
+
+          <p>His doctoral dissertation, <em>Crusading for Fun and Profit: An Examination of Ludohistorical Mode in the Crusader Kings Community</em>, earned the UCF College of Arts and Humanities Outstanding Dissertation Award (2024). The project traces how platforms, communities of practice, and formal game affordances co-construct what he terms "ludohistorical mode" — the particular way historical games invite players to inhabit, revise, and produce history.</p>
+
+          <p>Lundblade's scholarship appears in the <em>Journal of Gaming &amp; Virtual Worlds</em>, <em>Popular Culture Studies Journal</em>, and proceedings of Foundations of Digital Games (FDG) and DiGRA. His broader agenda encompasses procedural rhetoric, the Games-as-a-Service paradigm, online discourse analysis, and the methodological challenges facing qualitative researchers working at scale in digital community spaces.</p>
+
+          <p>Alongside his academic career, he works as a professional developer with deep expertise in web application development, test engineering, and data visualization — and as a technical educator at the graduate and undergraduate levels.</p>
+
+          <ul class="awards-list" style="margin-top:1.5rem">
+            <li class="award-item">
+              <span class="award-glyph">★</span>
+              <div>
+                <div class="award-title">UCF College of Arts &amp; Humanities Outstanding Dissertation Award</div>
+                <div class="award-detail">University of Central Florida · 2024</div>
+              </div>
+            </li>
+            <li class="award-item">
+              <span class="award-glyph">★</span>
+              <div>
+                <div class="award-title">Presidential Doctoral Fellowship &mdash; $80,000</div>
+                <div class="award-detail">University of Central Florida · 2017</div>
+              </div>
+            </li>
+            <li class="award-item">
+              <span class="award-glyph">★</span>
+              <div>
+                <div class="award-title">Fellowship for Technical and Professional Communication &mdash; $1,000</div>
+                <div class="award-detail">Auburn University · 2012</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     PUBLICATIONS — GREAT WORKS
+====================================================== -->
+<section id="research" class="section-wrap full-bleed">
+  <div class="inner">
+    <div class="section-head">
+      <div class="eyebrow">Scholar's Codex</div>
+      <h2 class="section-title">Great Works</h2>
+      <div class="rule">◆</div>
+    </div>
+
+    <div class="pub-grid">
+
+      <article class="pub-card">
+        <div class="pub-meta">
+          <span class="pub-year">2026</span>
+          <span class="pub-badge">Conference</span>
+        </div>
+        <div class="pub-title">Bending the Arc of (Ludo)History: Discursive Contestations Within the (Hi)Story-Design-Space of Crusader Kings III</div>
+        <div class="pub-venue">Foundations of Digital Games 2026 &mdash; Copenhagen, Denmark</div>
+        <div class="pub-abstract">Examines how scholarly grammars of historical possibility in play can be expanded to match discursive contexts where the possibility space is itself in flux within Games-as-a-Service community spaces. Offers a framework with implications for both historical game studies and game community research.</div>
+      </article>
+
+      <article class="pub-card book">
+        <div class="pub-meta">
+          <span class="pub-year">2025</span>
+          <span class="pub-badge book">Book Chapter</span>
+        </div>
+        <div class="pub-title">What Video Games Have Taught Us: Two Decades of Gaming and Learning</div>
+        <div class="pub-venue"><em>Historiographies of Game Studies: What It Has Been, What It Could Be</em></div>
+        <div class="pub-abstract">Uses Gee's landmark 2003 monograph as a focal lens for analyzing how games-and-learning scholarship served as a site of disciplinary boundary formation during game studies' early years, and how that early history continues to shape the field.</div>
+      </article>
+
+      <article class="pub-card">
+        <div class="pub-meta">
+          <span class="pub-year">2024</span>
+          <span class="pub-badge">Conference</span>
+        </div>
+        <div class="pub-title">Gods, Kings, and Historians: History and the Dual Diegesis of Crusader Kings in the Assemblage of Play</div>
+        <div class="pub-venue">DiGRA 2024 &mdash; Guadalajara, MX</div>
+        <div class="pub-abstract">Analyzes the diegetic complexity of <em>Crusader Kings III</em>, exploring how overlapping diegetic perspectives &mdash; each rooted in distinct ideological framings &mdash; create a playground for historically-aware engagement, revision, and refutation of medieval historicity.</div>
+      </article>
+
+      <article class="pub-card">
+        <div class="pub-meta">
+          <span class="pub-year">2023</span>
+          <span class="pub-badge">Conference</span>
+        </div>
+        <div class="pub-title">If Your Empire Last More Than Two Centuries, You May Need to Speak to Your Doctor</div>
+        <div class="pub-venue">Foundations of Digital Games 2023 &mdash; Lisbon, Portugal</div>
+        <div class="pub-abstract">Analyzes how community notions of historicity, historical accuracy, and culturally-situated rhetorical authority structure critiques of <em>Crusader Kings III</em> in online discourse under the GaaS paradigm.</div>
+      </article>
+
+      <article class="pub-card">
+        <div class="pub-meta">
+          <span class="pub-year">2023</span>
+          <span class="pub-badge">Conference</span>
+        </div>
+        <div class="pub-title">Sorting Things Out: Critically Assessing Reddit's Post Sorting Algorithms on Qualitative Analysis Methods</div>
+        <div class="pub-venue">ACM SIGDOC 2023 &mdash; Orlando, FL</div>
+        <div class="pub-abstract">Examines how Reddit's post-sorting algorithms systematically shape the data available to qualitative researchers in online community spaces, with methodological implications for discourse analysis at scale.</div>
+      </article>
+
+      <article class="pub-card journal">
+        <div class="pub-meta">
+          <span class="pub-year">2021</span>
+          <span class="pub-badge journal">Journal</span>
+        </div>
+        <div class="pub-title">Watch Me Make History: Reenacting and Remaking the Past in Historical Game Live Streams</div>
+        <div class="pub-venue"><em>Popular Culture Studies Journal</em>, vol. 9, pp. 69–87</div>
+        <div class="pub-abstract">Situates historical game live streaming within wider assemblages and contextual sites, examining how historical practice intersects with platform norms and community conventions in Twitch and YouTube streams.</div>
+      </article>
+
+      <article class="pub-card">
+        <div class="pub-meta">
+          <span class="pub-year">2021</span>
+          <span class="pub-badge">Conference</span>
+        </div>
+        <div class="pub-title">Crowning Achievements: A Historioludic Analysis of the Achievement Metagame in Historical Simulation Games</div>
+        <div class="pub-venue">Foundations of Digital Games 2021 &mdash; Montréal, QC</div>
+        <div class="pub-abstract">Builds a typology of historical engagement through game achievements, examining how extra-ludic systems guide historical inquiry and the extent to which developers invest in shaping historical awareness through play.</div>
+      </article>
+
+      <article class="pub-card">
+        <div class="pub-meta">
+          <span class="pub-year">2020</span>
+          <span class="pub-badge">Conference</span>
+        </div>
+        <div class="pub-title">Civilizing Civilization (and beyond): A History of Historical Game Studies</div>
+        <div class="pub-venue">Foundations of Digital Games 2020 &mdash; Bugibba, Malta</div>
+        <div class="pub-abstract">Traces the formation of historical game studies as a distinct field &mdash; its metalanguage, critical discourses, and taxonomic structures &mdash; from its origins in <em>Civilization</em> scholarship through its development as an interdisciplinary scholarly community.</div>
+      </article>
+
+      <article class="pub-card journal">
+        <div class="pub-meta">
+          <span class="pub-year">2019</span>
+          <span class="pub-badge journal">Journal</span>
+        </div>
+        <div class="pub-title">How the West (Was) Won: Unit Operations and Emergent Procedural Rhetorics of Colonialism in Europa Universalis IV</div>
+        <div class="pub-venue"><em>Journal of Gaming &amp; Virtual Worlds</em>, 11(3): 251–270</div>
+        <div class="pub-abstract">Uses procedural rhetoric and unit analysis to examine how the algorithmic implementations of <em>Europa Universalis IV</em> advance arguments about colonialism, historical determinism, and technological advancement at both macro and micro levels.</div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     CAREER — ERA LOG
+====================================================== -->
+<section id="career" class="section-wrap">
+  <div class="inner">
+    <div class="section-head">
+      <div class="eyebrow">Historical Record</div>
+      <h2 class="section-title">Era Log</h2>
+      <div class="rule">◆</div>
+    </div>
+
+    <div class="era-timeline">
+
+      <div class="era-block">
+        <div class="era-flag"><span>Ancient Era &nbsp;·&nbsp; Foundation</span></div>
+        <div class="era-items">
+          <div class="era-item">
+            <div class="era-year">2011</div>
+            <div class="era-role">B.S. Electrical &amp; Computer Engineering</div>
+            <div class="era-org">Baylor University · Waco, TX</div>
+          </div>
+          <div class="era-item alt">
+            <div class="era-year">2011</div>
+            <div class="era-role">Hardware Acceleration Research &mdash; Poster</div>
+            <div class="era-org">TAMU Summer Research Colloquium</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="era-block">
+        <div class="era-flag"><span>Classical Era &nbsp;·&nbsp; Communication</span></div>
+        <div class="era-items">
+          <div class="era-item">
+            <div class="era-year">2012–2014</div>
+            <div class="era-role">Graduate Research Assistant</div>
+            <div class="era-org">LUCIA Lab / IDEA Lab · Auburn University</div>
+          </div>
+          <div class="era-item alt">
+            <div class="era-year">2013</div>
+            <div class="era-role">Technical Writer (Intern)</div>
+            <div class="era-org">Johnson Controls</div>
+          </div>
+          <div class="era-item">
+            <div class="era-year">2014</div>
+            <div class="era-role">M.T.P.C. — Technical &amp; Professional Communication</div>
+            <div class="era-org">Auburn University · Auburn, AL</div>
+          </div>
+          <div class="era-item alt">
+            <div class="era-year">2014</div>
+            <div class="era-role">Web Developer</div>
+            <div class="era-org">Auburn University Office of University Writing</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="era-block">
+        <div class="era-flag"><span>Medieval Era &nbsp;·&nbsp; Industry</span></div>
+        <div class="era-items">
+          <div class="era-item">
+            <div class="era-year">2015–2016</div>
+            <div class="era-role">Applications Engineer</div>
+            <div class="era-org">National Instruments</div>
+          </div>
+          <div class="era-item alt">
+            <div class="era-year">2016–2019</div>
+            <div class="era-role">Web Developer</div>
+            <div class="era-org">Self-Employed</div>
+          </div>
+          <div class="era-item">
+            <div class="era-year">2018</div>
+            <div class="era-role">Information Architect</div>
+            <div class="era-org">Orange County Clerk of Courts</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="era-block">
+        <div class="era-flag"><span>Renaissance Era &nbsp;·&nbsp; Scholarship</span></div>
+        <div class="era-items">
+          <div class="era-item award">
+            <div class="era-year">2017</div>
+            <div class="era-role">Presidential Doctoral Fellowship</div>
+            <div class="era-org">University of Central Florida · $80,000</div>
+          </div>
+          <div class="era-item alt">
+            <div class="era-year">2018–2019</div>
+            <div class="era-role">RICHES Digital Humanities Intern</div>
+            <div class="era-org">University of Central Florida</div>
+          </div>
+          <div class="era-item">
+            <div class="era-year">2019–Present</div>
+            <div class="era-role">Applications Programmer I</div>
+            <div class="era-org">University of Central Florida</div>
+          </div>
+          <div class="era-item alt">
+            <div class="era-year">2019–2020</div>
+            <div class="era-role">Secretary, Social Chair — TTSA</div>
+            <div class="era-org">Texts &amp; Technology Student Association, UCF</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="era-block">
+        <div class="era-flag"><span>Industrial Era &nbsp;·&nbsp; Publication</span></div>
+        <div class="era-items">
+          <div class="era-item">
+            <div class="era-year">2019–2023</div>
+            <div class="era-role">9 Publications &amp; Conference Papers</div>
+            <div class="era-org">FDG · DiGRA · SIGDOC · JGVW · PCSJ</div>
+          </div>
+          <div class="era-item alt">
+            <div class="era-year">2024</div>
+            <div class="era-role">Ph.D. Texts &amp; Technology — Conferred</div>
+            <div class="era-org">University of Central Florida</div>
+          </div>
+          <div class="era-item award">
+            <div class="era-year">2024</div>
+            <div class="era-role">Outstanding Dissertation Award</div>
+            <div class="era-org">UCF College of Arts &amp; Humanities</div>
+          </div>
+          <div class="era-item alt">
+            <div class="era-year">2025–2026</div>
+            <div class="era-role">Continued Research &amp; Public History</div>
+            <div class="era-org">FDG · ELO · Florida Historical Society</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     SKILLS — YIELDS
+====================================================== -->
+<section id="skills" class="section-wrap full-bleed">
+  <div class="inner">
+    <div class="section-head">
+      <div class="eyebrow">Civilization Yields</div>
+      <h2 class="section-title">Areas of Expertise</h2>
+      <div class="rule">◆</div>
+    </div>
+
+    <div class="yields-grid">
+
+      <div class="yield-card sci">
+        <div class="yield-head">
+          <svg class="yield-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="20" cy="20" r="17" stroke="#3A7FAF" stroke-width="1.4" fill="none"/>
+            <ellipse cx="20" cy="20" rx="8" ry="17" stroke="#3A7FAF" stroke-width="0.9" fill="none"/>
+            <ellipse cx="20" cy="20" rx="17" ry="8" stroke="#3A7FAF" stroke-width="0.9" fill="none" transform="rotate(55 20 20)"/>
+            <circle cx="20" cy="20" r="2.8" fill="#3A7FAF"/>
+          </svg>
+          <div class="yield-name">Science &mdash; Research</div>
+        </div>
+        <ul class="yield-list">
+          <li>Historical game studies</li>
+          <li>Discourse &amp; community analysis</li>
+          <li>Procedural rhetoric</li>
+          <li>GaaS paradigm &amp; live-service games</li>
+          <li>Qualitative digital methods</li>
+        </ul>
+      </div>
+
+      <div class="yield-card cul">
+        <div class="yield-head">
+          <svg class="yield-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 4 L36 36 L4 36 Z" stroke="#7B3FA0" stroke-width="1.4" fill="none"/>
+            <path d="M20 12 L30 34 L10 34 Z" stroke="#7B3FA0" stroke-width="0.8" fill="none" opacity="0.45"/>
+            <circle cx="20" cy="4" r="2.2" fill="#7B3FA0"/>
+          </svg>
+          <div class="yield-name">Culture &mdash; Humanities</div>
+        </div>
+        <ul class="yield-list">
+          <li>Digital humanities</li>
+          <li>Public history &amp; digital exhibition</li>
+          <li>History of game studies (field formation)</li>
+          <li>Pedagogy &amp; curriculum design</li>
+          <li>Technical &amp; professional communication</li>
+        </ul>
+      </div>
+
+      <div class="yield-card pro">
+        <div class="yield-head">
+          <svg class="yield-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="5"  y="22" width="8" height="14" stroke="#A84415" stroke-width="1.3" fill="none"/>
+            <rect x="16" y="14" width="8" height="22" stroke="#A84415" stroke-width="1.3" fill="none"/>
+            <rect x="27" y="6"  width="8" height="30" stroke="#A84415" stroke-width="1.3" fill="none"/>
+          </svg>
+          <div class="yield-name">Production &mdash; Development</div>
+        </div>
+        <ul class="yield-list">
+          <li>JavaScript · PHP · Python · C# · C++</li>
+          <li>Vue.js · Laravel · ASP.NET MVC</li>
+          <li>Docker · Git · MySQL · MongoDB</li>
+          <li>D3 · ArcGIS · Leaflet.js</li>
+          <li>LabVIEW · TestStand · NI hardware</li>
+        </ul>
+      </div>
+
+      <div class="yield-card gld">
+        <div class="yield-head">
+          <svg class="yield-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polygon points="20,3 23.5,13.5 34.5,13.5 26,20 29,31 20,24.5 11,31 14,20 5.5,13.5 16.5,13.5" stroke="#C8962B" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
+          </svg>
+          <div class="yield-name">Gold &mdash; Professional</div>
+        </div>
+        <ul class="yield-list">
+          <li>Test &amp; measurement engineering (NI)</li>
+          <li>Web application &amp; systems development</li>
+          <li>Information architecture</li>
+          <li>Data visualization &amp; GIS</li>
+          <li>FPGA, embedded, RF hardware platforms</li>
+        </ul>
+      </div>
+
+      <div class="yield-card fai">
+        <div class="yield-head">
+          <svg class="yield-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 5 C20 5 8 17 8 25 C8 31.6 13.4 37 20 37 C26.6 37 32 31.6 32 25 C32 17 20 5 20 5Z" stroke="#1E8C5A" stroke-width="1.4" fill="none"/>
+            <line x1="20" y1="17" x2="20" y2="37" stroke="#1E8C5A" stroke-width="0.9" opacity="0.5"/>
+            <line x1="11" y1="26" x2="29" y2="26" stroke="#1E8C5A" stroke-width="0.9" opacity="0.5"/>
+          </svg>
+          <div class="yield-name">Faith &mdash; Pedagogy</div>
+        </div>
+        <ul class="yield-list">
+          <li>Server-Side Scripting (instructor of record)</li>
+          <li>Technical Writing (instructor of record)</li>
+          <li>Intro to Web Development (TA)</li>
+          <li>National Instruments — 5 training courses</li>
+          <li>14 guest lectures across 8 courses, 2018–2023</li>
+        </ul>
+      </div>
+
+      <div class="yield-card svc">
+        <div class="yield-head">
+          <svg class="yield-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 20 L20 7 L36 20" stroke="#1A6464" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
+            <rect x="10" y="20" width="20" height="15" stroke="#1A6464" stroke-width="1.3" fill="none"/>
+            <rect x="16" y="27" width="8" height="8" stroke="#1A6464" stroke-width="1" fill="none"/>
+          </svg>
+          <div class="yield-name">Amenities &mdash; Service</div>
+        </div>
+        <ul class="yield-list">
+          <li>Peer reviewer: FDG, ELO, ICIDS</li>
+          <li>TTSA Secretary &amp; Social Chair</li>
+          <li>Digital exhibition design</li>
+          <li>Ocoee Massacre public history project</li>
+          <li><em>Our Stories, Our History</em> — UCF public panel</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     CONTACT — DIPLOMACY
+====================================================== -->
+<section id="contact" class="section-wrap full-bleed">
+  <div class="inner">
+    <div class="section-head">
+      <div class="eyebrow">Open Borders Agreement</div>
+      <h2 class="section-title">Diplomacy</h2>
+    </div>
+
+    <div class="diplo-panel">
+      <p>Pursuing faculty positions in digital humanities, game studies, and technical communication. Open to collaboration, peer review, and interdisciplinary inquiry.</p>
+      <a class="diplo-email" href="mailto:casus_scribere@gmail.com">casus_scribere@gmail.com</a>
+      <div class="diplo-links">
+        <a href="curriculum-vitae.html">Full CV</a>
+        <a href="https://www.kirklundblade.com">Portfolio Site</a>
+      </div>
+    </div>
+
+    <p class="turn-stamp">Kirk M. Lundblade &nbsp;·&nbsp; Scholar &amp; Developer &nbsp;·&nbsp; Orlando, FL &nbsp;&nbsp;◆&nbsp;&nbsp; Turn 2026</p>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     SCRIPTS
+====================================================== -->
+<script>
+(function () {
+  'use strict';
+
+  /* ---- hex grid canvas ---- */
+  const canvas = document.getElementById('hex-canvas');
+  const hero   = document.getElementById('hero');
+
+  function resizeCanvas() {
+    canvas.width  = hero.offsetWidth;
+    canvas.height = hero.offsetHeight;
+    draw();
+  }
+
+  function draw() {
+    const ctx  = canvas.getContext('2d');
+    const R    = 26;
+    const w    = Math.sqrt(3) * R;
+    const step = R * 1.5;
+    const cols = Math.ceil(canvas.width  / w) + 2;
+    const rows = Math.ceil(canvas.height / step) + 2;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = 'rgba(200,150,43,0.45)';
+    ctx.lineWidth   = 0.8;
+
+    for (let row = -1; row < rows; row++) {
+      for (let col = -1; col < cols; col++) {
+        const cx = col * w + (row % 2 === 0 ? 0 : w / 2);
+        const cy = row * step;
+        ctx.beginPath();
+        for (let i = 0; i < 6; i++) {
+          const a = Math.PI / 3 * i - Math.PI / 6;
+          const x = cx + R * Math.cos(a);
+          const y = cy + R * Math.sin(a);
+          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.stroke();
+      }
+    }
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  /* ---- active nav highlight on scroll ---- */
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+  const links    = Array.from(document.querySelectorAll('#topnav .nav-links a'));
+
+  function highlightNav() {
+    const scrollY = window.scrollY + 70;
+    let current   = '';
+    sections.forEach(s => { if (scrollY >= s.offsetTop) current = s.id; });
+    links.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+
+  window.addEventListener('scroll', highlightNav, { passive: true });
+  highlightNav();
+})();
+</script>
+
+</body>
+</html>

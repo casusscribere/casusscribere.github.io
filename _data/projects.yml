@@ -1,0 +1,24 @@
+# Aggregator for standalone projects deployed under www.kirklundblade.com/<repo>.
+# Each project lives in its own GitHub repository (its own Pages project site);
+# this list is maintained by hand. Add a project by appending an entry below.
+#
+#   title:       Display name.
+#   url:         Root-relative path (e.g. /kepler_system_generator/). Domain-agnostic.
+#   repo:        Optional. Link to the source repository.
+#   year:        Optional. Year shown next to the title.
+#   description: Optional. One or two sentences.
+
+- title: Procedural Solar System
+  url: /kepler_system_generator/
+  repo: https://github.com/casusscribere/kepler_system_generator
+  year: 2025
+  description: >
+    A seeded procedural generator that builds and renders plausible star
+    systems in the browser.
+
+- title: Dark Heresy 2e — Roll Servitor
+  url: /dh2_roll_api/
+  repo: https://github.com/casusscribere/dh2_roll_api
+  year: 2025
+  description: >
+    A dice-roll helper and API for the Dark Heresy 2nd Edition tabletop RPG.

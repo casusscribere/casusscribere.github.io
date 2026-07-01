@@ -27,7 +27,8 @@ This is a Jekyll-based personal/academic portfolio site for Kirk M. Lundblade, d
 /
 ├── _config.yml           # Master site configuration
 ├── _data/
-│   └── menu.yml          # Navigation menu definition
+│   ├── menu.yml          # Navigation menu definition
+│   └── projects.yml      # Standalone-project list for the /projects page
 ├── _includes/            # Reusable template fragments (from theme)
 │   ├── head.html
 │   ├── back_link.html
@@ -47,12 +48,26 @@ This is a Jekyll-based personal/academic portfolio site for Kirk M. Lundblade, d
 │   ├── css/main.scss     # CSS entry point
 │   └── js/               # Optional per-page JavaScript
 ├── index.md              # Homepage (layout: home)
-├── about.md              # About page (layout: page)
-├── archive.md            # Full post archive (layout: archive)
-├── example2-archive.md   # Category-specific archive (layout: archive)
+├── archive.md            # Full post archive, all categories (layout: archive)
+├── publications-archive.md # Publications-only archive (layout: archive)
+├── projects.md           # Standalone-project aggregator (layout: page)
+├── portfolio.html        # Standalone alternate landing page (see note below)
 ├── logo.png              # Favicon
 └── CNAME                 # Custom domain
 ```
+
+**Not served / not tracked** (present in the working tree but excluded from the
+Jekyll build via `.gitignore`):
+
+- `sourcedocs/` — source PDFs/DOCX for publications, plus the CV `.docx`. Reference
+  material only; nothing here is published.
+- `archived-test-variants/` — earlier standalone design experiments.
+
+**`portfolio.html`** is a self-contained, heavily-styled alternate landing page
+(a "Civilopedia" concept with its own fonts, CSS, and JS). It is **not** a Jekyll
+page and does **not** use the no-style-please theme. It is not linked from the
+site. Treat it as an experimental redesign artifact, not the live homepage
+(`index.md` remains the homepage).
 
 ---
 
@@ -117,8 +132,9 @@ Categories are free-form strings set in post front matter. Current categories in
 |---|---|
 | `publication` | Journal articles, conference papers, research outputs |
 | `professional` | CV and professional profile content |
-| `example` | Theme demo content (can be removed) |
-| `example2` | Theme demo content (can be removed) |
+
+> The theme's original `example` / `example2` demo posts and demo pages have been
+> removed. If you re-import theme content, those categories may reappear.
 
 To add a new category, simply use it in a post's `category:` field. To surface it in navigation or a dedicated archive page, also update `_data/menu.yml` and optionally create a new archive page.
 
@@ -157,6 +173,34 @@ entries:
       - title: Sub-item
         url: sub-item.html
 ```
+
+---
+
+## Projects Aggregator
+
+`/projects.html` lists standalone tools that are deployed at their own addresses
+under this domain (e.g. `www.kirklundblade.com/kepler_system_generator`).
+
+**Key fact:** each of those projects lives in its **own GitHub repository** with
+its own GitHub Pages *project site*. They appear under `www.kirklundblade.com/...`
+only because this repo is the account's user site that owns the `CNAME`. Jekyll
+here **cannot see or auto-discover** those repos at build time — so the list is
+maintained by hand.
+
+To add a project to the page, append an entry to `_data/projects.yml`:
+
+```yaml
+- title: Display Name
+  url: /repo_name/            # root-relative; domain-agnostic
+  repo: https://github.com/casusscribere/repo_name   # optional
+  year: 2025                  # optional
+  description: >              # optional
+    One or two sentences.
+```
+
+`projects.md` (layout `page`) loops over `site.data.projects` to render the list.
+The page is linked from `_data/menu.yml` as `projects.html`. No per-project code
+lives in this repo — only the metadata entry.
 
 ---
 
@@ -214,8 +258,8 @@ which_category: publication
 ## Modifying the CV
 
 The CV exists in two forms:
-- **Web version**: `_posts/2024-12-05-curriculum-vitae.md` — category `professional`, linked from menu as `curriculum-vitae.html`
-- **Word document**: `Lundblade_26_CV.docx` — tracked in git but not served by Jekyll
+- **Web version**: `_posts/2024-12-05-curriculum-vitae.md` — category `professional`, linked from menu as `curriculum-vitae.html`. This is the served version.
+- **Word document**: `sourcedocs/Lundblade_26_CV.docx` — reference material only. `sourcedocs/` is gitignored, so this file is **not committed and not served by Jekyll**.
 
 When updating the CV, update the markdown post. If the Word doc should also be updated, that is a separate manual step — the two are not linked.
 

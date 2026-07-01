@@ -5,9 +5,13 @@ entries:
   - title: CV
     url: curriculum-vitae.html
 
+  - title: projects
+    url: projects.html
+
   - title: recent publications
     post_list:
       category: publication
+      limit: 5
       show_more: true
-      show_more_text: See more posts...
-      show_more_url: example2-archive.html
+      show_more_text: See all publications...
+      show_more_url: publications-archive.html
