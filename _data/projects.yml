@@ -70,3 +70,25 @@
     validated the sampling, and wrote the interpretation.
   models: Claude Opus 4.8
   tools: Claude Code
+
+- title: ACM Word to LaTeX Converter
+  url: /acm-word-converter/
+  repo: https://github.com/casusscribere/acm-word-converter
+  year: 2026
+  description: >
+    A tool for converting ACM Word documents to LaTeX format.
+  ai_use: >
+    I framed the requirements, manually reviewed each conversion attempt, hand-edited the LaTeX output against the original word docs, and iterated with Claude. CC did the rest.
+  models: Claude Opus 4.7, 4.8
+  tools: Claude Code
+
+  - title: Idle Sails
+  url: /idle-sails/
+  repo: https://github.com/casusscribere/idle-sails
+  year: 2026
+  description: >
+    A browser idler that uses archival data on age-of-sail vessels, routes, weather conditions, cargo etc to simulate vessels traveling across the world.
+  ai_use: >
+    I established the requirements, specified archival data sources, imposed historiographic considerations, documented decisions, and made lists of goofy names. CC did the rest.
+  models: Claude Fable 5
+  tools: Claude Code
