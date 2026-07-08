@@ -72,8 +72,8 @@
   tools: Claude Code
 
 - title: ACM Word to LaTeX Converter
-  url: /acm-word-converter/
-  repo: https://github.com/casusscribere/acm-word-converter
+  url: /acm-word-to-latex/
+  repo: https://github.com/casusscribere/acm-word-to-latex/
   year: 2026
   description: >
     A tool for converting ACM Word documents to LaTeX format.
