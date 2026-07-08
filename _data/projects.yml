@@ -2,23 +2,71 @@
 # Each project lives in its own GitHub repository (its own Pages project site);
 # this list is maintained by hand. Add a project by appending an entry below.
 #
-#   title:       Display name.
-#   url:         Root-relative path (e.g. /kepler_system_generator/). Domain-agnostic.
-#   repo:        Optional. Link to the source repository.
-#   year:        Optional. Year shown next to the title.
-#   description: Optional. One or two sentences.
+# The page is a teaching aid: it shows students the kinds of projects that can be
+# built independently with AI, and roughly what each one cost to make. Every field
+# below except title/url is optional — any field left blank is simply omitted from
+# the rendered page, so fill in only what you can report honestly.
+#
+#   Core
+#   ----
+#   title:       Display name.                        (required)
+#   url:         Root-relative path (e.g. /kepler_system_generator/). (required)
+#   repo:        Link to the source repository.
+#   year:        Year shown next to the title.
+#   description: One or two sentences on what the project is.
+#
+#   AI build notes  (the pedagogical payload)
+#   --------------
+#   ai_use:      1–2 sentences on HOW AI was used (what it did, what it didn't).
+#   models:      Model(s) used, e.g. "Claude Opus 4.8, GPT-5".
+#   tools:       Interface / harness, e.g. "Claude Code", "ChatGPT web", "Cursor".
+#   tokens:      Approximate token cost, e.g. "~1.2M" or "~800k in / 200k out".
+#   cost:        Approximate $ cost, if known, e.g. "~$6".
+#   time:        Wall-clock time to build, e.g. "~4 hours over 2 sessions".
+#   sessions:    Number of working sessions / sittings, e.g. 3.
+#   prompts:     Approximate number of prompts / turns, e.g. "~40".
+#
+#   Context for students  (all optional — suggested extras)
+#   --------------------
+#   human_role:  What the human did vs. the AI (steering, debugging, design).
+#   stack:       Languages / libraries, e.g. "vanilla JS, HTML canvas".
+#   difficulty:  "beginner" | "intermediate" | "advanced".
+#   ai_assist:   Rough share of code written by AI, e.g. "~90%".
+#   lessons:     One takeaway or gotcha worth passing on to students.
+#   status:      "live" | "prototype" | "archived" (defaults to live if omitted).
 
 - title: Procedural Solar System
   url: /kepler_system_generator/
   repo: https://github.com/casusscribere/kepler_system_generator
-  year: 2025
+  year: 2026
   description: >
     A seeded procedural generator that builds and renders plausible star
     systems in the browser.
+  ai_use: >
+    Claude wrote the orbital-mechanics math and the HTML-canvas rendering loop
+    from a plain-language spec; I selected the seeding schema, built the featurelist, and debugged minor errors.
+  models: Claude Opus 4.8
+  tools: Claude Code
 
 - title: Dark Heresy 2e — Roll Servitor
   url: /dh2_roll_api/
   repo: https://github.com/casusscribere/dh2_roll_api
-  year: 2025
+  year: 2026
   description: >
     A dice-roll helper and API for the Dark Heresy 2nd Edition tabletop RPG.
+  ai_use: >
+    I architected the DSL and use-case schema, validated the PDF-parsing tools, built/organized/planned feature lists, and developed agent profiles for testing. Claude did the rest.
+  models: Claude Opus 4.8 and Fable 5
+
+- title: CK3 Distant Reading
+  url: /ck3-distant-reading/
+  repo: https://github.com/casusscribere/ck3-distant-reading
+  year: 2026
+  description: >
+    A distant reading conducted using scraped data from the Crusader Kings 3 official forums Developer Diaries and player responses.
+  ai_use: >
+    Claude built the scraping and text-processing pipeline and helped surface
+    patterns across thousands of forum posts; I framed the research questions,
+    validated the sampling, and wrote the interpretation.
+  models: Claude Opus 4.8
+  tools: Claude Code
