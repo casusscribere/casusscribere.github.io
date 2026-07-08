@@ -82,7 +82,7 @@
   models: Claude Opus 4.7, 4.8
   tools: Claude Code
 
-  - title: Idle Sails
+- title: Idle Sails
   url: /idle-sails/
   repo: https://github.com/casusscribere/idle-sails
   year: 2026
