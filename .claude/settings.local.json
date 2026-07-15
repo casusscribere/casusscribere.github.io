@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//usr/bin/**)",
+      "Read(//home/kirk/miniconda3/bin/**)",
+      "Read(//home/kirk/.local/**)",
+      "Read(//home/kirk/.local/bin/**)",
+      "Bash(python3 /home/kirk/.claude/plugins/cache/anthropic-agent-skills/document-skills/575462609294/skills/pdf/scripts/convert_pdf_to_images.py --help)",
+      "Bash(python3 -c \"import sys; sys.path.insert\\(0,'/home/kirk/.local/lib/claude'\\); import pymupdf; print\\('pymupdf ok'\\)\")",
+      "Bash(pandoc --track-changes=all Lundblade_23_FDG_HistDiscMYVER.docx -t plain)",
+      "Bash(python3 *)",
+      "Bash(ruby -ryaml -e 'YAML.load_file\\(\"_data/projects.yml\"\\); puts \"OK: #{YAML.load_file\\(\"_data/projects.yml\"\\).size} entries\"')"
+    ]
+  }
+}

@@ -48,16 +48,6 @@
   models: Claude Opus 4.8
   tools: Claude Code
 
-- title: Dark Heresy 2e — Roll Servitor
-  url: /dh2_roll_api/
-  repo: https://github.com/casusscribere/dh2_roll_api
-  year: 2026
-  description: >
-    A dice-roll helper and API for the Dark Heresy 2nd Edition tabletop RPG.
-  ai_use: >
-    I architected the DSL and use-case schema, validated the PDF-parsing tools, built/organized/planned feature lists, and developed agent profiles for testing. Claude did the rest.
-  models: Claude Opus 4.8 and Fable 5
-
 - title: CK3 Distant Reading
   url: /ck3-distant-reading/
   repo: https://github.com/casusscribere/ck3-distant-reading
@@ -92,3 +82,27 @@
     I established the requirements, specified archival data sources, imposed historiographic considerations, documented decisions, and made lists of goofy names. CC did the rest.
   models: Claude Fable 5
   tools: Claude Code
+
+  - title: Dark Heresy 2e — Roll Servitor
+  url: /dh2_roll_api/
+  repo: https://github.com/casusscribere/dh2_roll_api
+  year: 2026
+  description: >
+    A dice-roll helper and API for the Dark Heresy 2nd Edition tabletop RPG.
+  ai_use: >
+    I architected the DSL and use-case schema, validated the PDF-parsing tools, built/organized/planned feature lists, and developed agent profiles for testing. Claude did the rest.
+  models: Claude Opus 4.8 and Fable 5
+
+  - title: Rogue Trader 2.0 System Map Tool
+  url: /rt2_system_map_tool/
+  repo: https://github.com/casusscribere/rt2_system_map_tool
+  year: 2026
+  description: >
+    A star system generator based on the generation pipeline in the FFG Rogue Trader sourcebooks.
+
+  - title: Rogue Trader 2.0 Sector Map Tool
+  url: /rt2_sector_map_tool/
+  repo: https://github.com/casusscribere/rt2_sector_map_tool
+  year: 2026
+  description: >
+    A star sector generator designed to create campaign maps for Warhammer 40k TTPRGs (such as Rogue Trader and Dark Heresy).
