@@ -99,3 +99,10 @@
   year: 2026
   description: >
     A star system generator based on the generation pipeline in the FFG Rogue Trader sourcebooks.
+
+- title: Rogue Trader 2.0 Sector Map Tool
+  url: /rt2_sector_map_tool/
+  repo: https://github.com/casusscribere/rt2_sector_map_tool
+  year: 2026
+  description: >
+    A star sector generator designed to create campaign maps for Warhammer 40k TTPRGs (such as Rogue Trader and Dark Heresy).
